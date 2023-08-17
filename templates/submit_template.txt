@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+#SBATCH -o $output
+#SBATCH -e $error
+#SBATCH --job-name=$job_name
+#SBATCH --partition=$partition
+#SBATCH --time 24:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --account=umontana_fire_modeling
+
+source /project/umontana_fire_modeling/anthony.marcozzi/FDS/FDS6/bin/FDS6VARS.sh 
+ulimit -s unlimited
+export OMP_NUM_THREADS=1
+fds $sim_path

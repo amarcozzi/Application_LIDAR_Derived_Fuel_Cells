@@ -1,0 +1,36 @@
+
+environment
+  tabular_data
+    tabular_data_file = '07_results.out'
+
+method
+  multidim_parameter_study
+    partitions = 31 15 0 0
+
+variables,
+    id_variables = 'V1'
+    continuous_design = 2
+      initial_point    $lower_mass     0.05
+      lower_bounds     $lower_mass     0.05
+      upper_bounds     $upper_mass     1.50
+      descriptors        'mass'       'fmc'
+    discrete_design_range = 2
+      initial_point    0            $tree
+      lower_bounds     0            $tree
+      upper_bounds     0            $tree
+      descriptors   'resolution'   'tree'
+
+
+interface
+    fork
+    asynchronous
+      evaluation_concurrency 512
+    parameters_file = 'params.tmp'
+    analysis_driver = '02_driver.sh'
+    results_file    = 'results.tmp'
+
+responses
+    response_functions = 1
+    descriptors= 'loss'
+    no_gradients
+    no_hessians
